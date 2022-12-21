@@ -1,0 +1,36 @@
+//Bibliotheque
+#include "DHT.h"
+#include <LiquidCrystal.h>
+
+DHT dht(2, DHT11); //definition de la broche du capteur
+LiquidCrystal lcd(7, 8, 9, 10, 11, 12); // definition des broche du lcd
+
+void setup() {
+  dht.begin(); //initialisation le capteur
+  Serial.begin(9600); // Débit de communication pour la communication série a 9600 bauds.
+  lcd.begin(16, 2); // définit le type d'écran lcd 16 x 2
+}
+void loop() {
+  int hum = dht.readHumidity(); //lecture de l'humidité
+  int temp = dht.readTemperature(); // lecture de la temperature
+
+  if ( temp >= 23 ) {        //teste si la temperature >= a 23° 
+    digitalWrite(6, HIGH);  // Led rouge allumée
+    digitalWrite(5, LOW ); // Led verte éteinte
+  }
+  else {
+    digitalWrite(5, HIGH);  // Led verte allumée
+    digitalWrite(6, LOW);  //  Led rouge éteinte
+  }
+
+// LCD
+  lcd.setCursor(0, 0);
+  lcd.print("Temperature: " + String(temp) + ('\xDF'));
+  lcd.setCursor(0, 1);
+  lcd.print("Humidite :" + String(hum) + ("%"));
+
+  // DEBOGAGE
+  Serial.println("Humidité: " + String(hum) + "%");
+  Serial.println("Temperature: " + String(temp) + "°");
+}
+
