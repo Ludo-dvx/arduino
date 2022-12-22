@@ -27,7 +27,7 @@ void loop() {
   lcd.setCursor(0, 0);
   lcd.print("Temperature: " + String(temp) + ('\xDF'));
   lcd.setCursor(0, 1);
-  lcd.print("Humidite :" + String(hum) + ("%"));
+  lcd.print("Humidite: " + String(hum) + ("%"));
 
   // DEBOGAGE
   Serial.println("Humidité: " + String(hum) + "%");
