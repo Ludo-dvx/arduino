@@ -11,26 +11,30 @@ void setup() {
   lcd.begin(16, 2); // définit le type d'écran lcd 16 x 2
 }
 void loop() {
-  int hum = dht.readHumidity(); //lecture de l'humidité
-  int temp = dht.readTemperature(); // lecture de la temperature
+  float hum = dht.readHumidity(); //lecture de l'humidité
+  float temp = dht.readTemperature(); // lecture de la temperature
 
-  if ( temp >= 23 ) {        //teste si la temperature >= a 23° 
-    digitalWrite(6, HIGH);  // Led rouge allumée
-    digitalWrite(5, LOW ); // Led verte éteinte
-  }
-  else {
+  if ( (temp > 19) && (temp < 21) ) {    //teste si la temperature
+
     digitalWrite(5, HIGH);  // Led verte allumée
     digitalWrite(6, LOW);  //  Led rouge éteinte
   }
+  else {
+    digitalWrite(6, HIGH);  // Led rouge allumée
+    digitalWrite(5, LOW ); // Led verte éteinte
+  }
 
-// LCD
+  // LCD
   lcd.setCursor(0, 0);
-  lcd.print("Temperature: " + String(temp) + ('\xDF'));
+  lcd.print("Temperature: " + String(int(temp)) + ('\xDF'));
   lcd.setCursor(0, 1);
-  lcd.print("Humidite: " + String(hum) + ("%"));
+  lcd.print("Humidite: " + String(int(hum)) + ("%"));
 
   // DEBOGAGE
-  Serial.println("Humidité: " + String(hum) + "%");
-  Serial.println("Temperature: " + String(temp) + "°");
+  Serial.print("Humidité: ");
+  Serial.print(hum);
+  Serial.println("%");
+  Serial.print("Temperature: ");
+  Serial.print(temp);
+  Serial.println("°");
 }
-
