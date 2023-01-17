@@ -14,7 +14,7 @@ void loop() {
   float hum = dht.readHumidity(); //lecture de l'humidité
   float temp = dht.readTemperature(); // lecture de la temperature
 
-  if ( (temp > 19) && (temp < 21) ) {    //teste si la temperature
+  if ( (temp >= 19) && (temp < 21) ) {    //teste si la temperature
 
     digitalWrite(5, HIGH);  // Led verte allumée
     digitalWrite(6, LOW);  //  Led rouge éteinte
@@ -38,3 +38,4 @@ void loop() {
   Serial.print(temp);
   Serial.println("°");
 }
+
